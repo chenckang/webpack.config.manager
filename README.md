@@ -1,29 +1,16 @@
-# webpack配置文件管理器
+# Webpack configuration manager
 
-## 使用介绍
+## Usage
 
-在应用项目的的根目录下创建`webpack.config`目录作为管理器的默认使用目录，使用`webpack.config.js`和`webpack.config.${process.node.ENV}.js`的作为并集作为最终的配置文件。
+To use ***webpack.config.manager*** you should relay on the directory named 'webpack.config' in the root of you appliction. ***webpack.config.manager*** use the environment variables —— `WEBPACK_ENV` to merge the specific configuration to generate the final configuration.
 
-其中在`webpack.config.${process.node.ENV}.js`中的配置具备更高的优先级，也就是在最终生成的配置项中`webpack.config.${process.node.ENV}.js`的配置项会覆盖`webpack.config.js`的同名配置。
+For example：
 
-示例：
+Presumably set `WEBPACK_ENV=production`, then ***webpack.config.manager*** will use the ***webpack.config.js*** and ***webpack.config.production.js*** under the 'webpack.config' directory to generate the final configuration.
 
-设ENV=local，则管理器将使用:
+Here are some advanced examples:
 
-`webpack.config/webpack.config.js`和`webpack.config/webpack.config.local.js`作为配置文件。
-
-使用示例：
-
-配置内置gulp任务，在gulp.js中：
-
-```javascript
-const gulp = require('gulp');
-const webpackConfigManager= require('@ali/webpack.config.manager');
-
-webpackConfigManager.gulp(gulp);
-```
-
-获取合并的配置文件，如下：
+Use the config interface
 
 ```javascript
 const webpackConfigManager= require('@ali/webpack.config.manager');
@@ -31,7 +18,7 @@ const webpackConfigManager= require('@ali/webpack.config.manager');
 let productionConf = webpackConfigManager.config('production'); //合并`webpack.config/webpack.config.js`和`webpack.config/webpack.config.production.js`
 ```
 
-获取内置的webpack的config文件地址：
+Get the inner configuration path
 
 ```javascript
 const execSync = require('child_process').execSync;
@@ -39,54 +26,37 @@ const webpackConfigManager= require('@ali/webpack.config.manager');
 
 let configPath = webpackConfigManager.configPath;
 
-execSync(`ENV=dev webpack-dev-server --config ${configPath}`)
+execSync(`WEBPACK_ENV=dev webpack-dev-server --config ${configPath}`)
 ```
 
-npm_script使用：
+Use as npm_scripts
 
-```
+```javascript
 // package.json
 {
   ...
   "scripts": {
-    "build": "ENV=production webpack --config webpack.config.js"
+    "build": "WEBPACK_ENV=production webpack --config webpack.config.js"
   },
   ...
 }
 
 // webpack.config.js
 module.exports = require('../index').config;
-
 ```
 
-## gulp任务
+## Why webpack.config.manager
 
-### 基础任务
+When it comes to develop a much more advanced app with webpack, one may use one configuration for development and another for publish only. So we can add ***webpack.config.js*** for development and ***webpack.config.production.js*** for publish，but the problem is this two files may be just similar to each other, expect that you may add some additional plugins to optimize the online version, for example use `JSUglify` plugin for production.
 
-> clean
-
-用于清除上一次的编译结果
-
-### 开发任务
-
-使用webpack-dev-server启动本地服务，配置使用情况如下：
-
-> dev
-
-选取配置`webpack.config/webpack.config.js`和`webpack.config/webpack.config.dev.js`
-
-### 自定义任务
-
-例：
+How about we just require ***webpack.config.js*** and then add some other code in ***webpack.config.production.js***, like:
 
 ```javascript
-const shell = require('gulp-shell');
-const webpackConfigManager= require('@ali/webpack.config.manager');
-
-gulp.task('custom', shell.task([
-  `ENV=custom webpack-dev-server --config ${webpackConfigManager.configPath}`
-]));
-
+require('webpack.config.js').plugins.push(somePlugins);
 ```
 
-选取配置`webpack.config/webpack.config.js`和`webpack.config/webpack.config.custom.js`作为最终合并配置启动`webpack-dev-server`
+That seems work, even through not graceful. But what if we do not what something in development, for example if we don't want `output.pathInfo` and so on, and even under more complex situation, we need to provide multiple development scenarios, one for local ajax mock and one for real remote ajax request. To meet all these particular demands, more and more ugly code will be added to you configuration files, finally you may find youself in mess.
+
+Now with ***webpack.config.manager***, things will be much easyier. For it can auto merge configuration for different purposes. With a base configuration ***webpack.config.js***, if you want to develop locally, then set `WEBPCAK_ENV=local`, the output configuration is the merged result of ***webpack.config.js*** and ***webpack.config.local.js***, and so forth.
+
+Check out the [example](https://github.com/chenckang/webpack.config.manager/tree/master/example) to find more details.

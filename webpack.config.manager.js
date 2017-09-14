@@ -56,7 +56,7 @@ function mergeConfig(source, target) {
 }
 
 module.exports = function(e) {
-  let env = e || process.env.ENV || 'local';
+  let env = e || process.env.WEBPCAK_ENV || 'local';
   let configPath = 'webpack.config/webpack.config.js';
   let envConfigPath = `webpack.config/webpack.config.${env}.js`;
 

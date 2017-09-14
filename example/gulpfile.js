@@ -11,5 +11,5 @@ const shell = require('gulp-shell');
 const configPath = require('../index').configPath;
 
 gulp.task('dev', shell.task([
-  `ENV=local webpack-dev-server --config ${configPath}`
+  `WEBPCAK_ENV=local webpack-dev-server --config ${configPath}`
 ]));
