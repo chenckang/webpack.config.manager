@@ -10,9 +10,6 @@
     "type": "git",
     "url": "git@gitlab.alibaba-inc.com:react-lab/webpack.config.manager.git"
   },
-  "publishConfig": {
-    "registry": "http://registry.npm.alibaba-inc.com"
-  },
   "peerDependencies": {
     "gulp": ">=3",
     "gulp-eslint": ">=4",
