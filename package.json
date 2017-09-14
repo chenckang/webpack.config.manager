@@ -6,6 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [
+    "webpack",
+    "config",
+    "manager",
+    "merge",
+    "react-component"
+  ],
   "repository": {
     "type": "git",
     "url": "git@github.com:chenckang/webpack.config.manager.git"
