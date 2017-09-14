@@ -10,8 +10,7 @@
     "webpack",
     "config",
     "manager",
-    "merge",
-    "react-component"
+    "merge"
   ],
   "repository": {
     "type": "git",
