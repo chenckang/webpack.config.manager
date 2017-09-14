@@ -8,6 +8,8 @@
 
 const gulp = require('gulp');
 const shell = require('gulp-shell');
-const webpackConfigManager= require('../index');
+const configPath = require('../index').configPath;
 
-webpackConfigManager.gulp(gulp);
+gulp.task('dev', shell.task([
+  `ENV=local webpack-dev-server --config ${configPath}`
+]));
