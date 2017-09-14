@@ -9,4 +9,3 @@ const path = require('path');
 
 exports.configPath = path.resolve(__dirname, './webpack.config.manager.js');
 exports.config = require('./webpack.config.manager.js');
-exports.gulp = require('./gulp');

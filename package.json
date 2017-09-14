@@ -11,15 +11,8 @@
     "url": "git@github.com:chenckang/webpack.config.manager.git"
   },
   "peerDependencies": {
-    "gulp": ">=3",
-    "gulp-eslint": ">=4",
-    "gulp-git": ">=2",
-    "gulp-shell": ">=0",
     "webpack": ">=2"
   },
   "author": "",
-  "license": "MIT",
-  "devDependencies": {
-    "gulp-shell": "^0.6.3"
-  }
+  "license": "MIT"
 }
