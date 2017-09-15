@@ -13,7 +13,7 @@ Here are some advanced examples:
 Use the config interface
 
 ```javascript
-const webpackConfigManager= require('@ali/webpack.config.manager');
+const webpackConfigManager= require('webpack.config.manager');
 
 let productionConf = webpackConfigManager.config('production'); //合并`webpack.config/webpack.config.js`和`webpack.config/webpack.config.production.js`
 ```
@@ -22,7 +22,7 @@ Get the inner configuration path
 
 ```javascript
 const execSync = require('child_process').execSync;
-const webpackConfigManager= require('@ali/webpack.config.manager');
+const webpackConfigManager= require('webpack.config.manager');
 
 let configPath = webpackConfigManager.configPath;
 
