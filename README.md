@@ -15,7 +15,9 @@ Use the config interface
 ```javascript
 const webpackConfigManager= require('webpack.config.manager');
 
-let productionConf = webpackConfigManager.config('production'); //合并`webpack.config/webpack.config.js`和`webpack.config/webpack.config.production.js`
+//合并`webpack.config/webpack.config.js`和`webpack.config/webpack.config.production.js`
+let productionConf = webpackConfigManager.config('production');
+
 ```
 
 Get the inner configuration path
@@ -42,7 +44,7 @@ Use as npm_scripts
 }
 
 // webpack.config.js
-module.exports = require('../index').config;
+module.exports = require('webpack.config.manager').config;
 ```
 
 ## Why webpack.config.manager
